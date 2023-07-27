@@ -1,0 +1,12 @@
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Stelle den Inhalt immer am unteren Ende der Seite ein */
+.bottom-content {
+    margin-top: auto;
+}

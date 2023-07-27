@@ -1,0 +1,67 @@
+const SerialPort = require('serialport');
+const Readline = require('@serialport/parser-readline');
+
+const port = new SerialPort('COM13', { baudRate: 115200 });
+const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
+
+function appendToTable(time, drink) {
+  const row = document.createElement('tr');
+  // Spalte für die Zeit
+  const timeCell = document.createElement('td');
+  timeCell.textContent = time;
+  row.appendChild(timeCell);
+  // Spalte für den Text "Person erkannt"
+  const drinkCell = document.createElement('td');
+  drinkCell.textContent = drink;
+  row.appendChild(drinkCell);
+  // Spalte für den Löschen-Button (Mülleimer-Symbol)
+  const deleteCell = document.createElement('td');
+  const deleteIcon = document.createElement('i');
+  deleteIcon.className = 'fas fa-trash-alt';
+  deleteCell.appendChild(deleteIcon);
+  row.appendChild(deleteCell);
+  // Füge die Zeile zur Tabelle hinzu
+  drinkTable.appendChild(row);
+}
+
+port.on('open', () => {
+  console.log('Serielle Verbindung geöffnet.');
+
+  parser.on('data', (data) => {
+    // Hier wird der Datenempfang verarbeitet
+    console.log('Empfangene Daten:', data);
+
+    if (data === "1") {
+      // Hier kannst du die Logik implementieren, um eine Audiodatei abzuspielen oder andere Aktionen auszuführen, wenn jemand erkannt wird.
+      const aktuelleZeit = new Date().toLocaleTimeString();
+      console.log(aktuelleZeit, "| Person erkannt");
+
+      // Füge den Eintrag zur Tabelle hinzu
+      appendToTable(aktuelleZeit, "Person erkannt");
+    }
+  });
+});
+
+port.on('error', (err) => {
+  console.error('Fehler bei der seriellen Verbindung:', err.message);
+});
+
+
+process.on('SIGINT', () => {
+  // Schließe die serielle Verbindung, wenn das Programm beendet wird
+  port.close((err) => {
+    if (err) {
+      console.error('Fehler beim Schließen der seriellen Verbindung:', err.message);
+    } else {
+      console.log('Serielle Verbindung geschlossen.');
+    }
+    process.exit();
+  });
+});
+
+
+
+
+
+
+

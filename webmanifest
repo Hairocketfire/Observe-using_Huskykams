@@ -1,0 +1,16 @@
+{
+  "name": "Überwacher",
+  "short_name": "erwacher",
+  "description": "Lese deinen überwacher aus",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "main.html",
+  "icons": [
+    {
+      "src": "Cam.png",
+      "sizes": "500x500",
+      "type": "image/png"
+    }
+  ]
+}

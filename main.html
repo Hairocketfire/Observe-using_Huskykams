@@ -13,6 +13,30 @@
     <meta name="title" content="Personen erkenner" />
     <meta name="description" content="Das ist die Überwachungsseite des Personenerkenner"/>
 </head>
+<script>
+    // Create WebSocket connection.
+    const socket = new WebSocket('ws://localhost:8765');
+
+    // Connection opened
+    socket.addEventListener('open', function (event) {
+        socket.send('Hello Server!');
+    });
+
+    // Listen for messages
+    socket.addEventListener('message', function (event) {
+        console.log('Message from server: ', event.data);
+    });
+
+    // Connection closed
+    socket.addEventListener('close', function (event) {
+        console.log('Server connection closed: ', event);
+    });
+
+    // Connection error
+    socket.addEventListener('error', function (event) {
+        console.log('Error: ', event);
+    });
+</script>
 <body>
     <header class="primary-container">
         <nav>

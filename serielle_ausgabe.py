@@ -1,6 +1,5 @@
 import serial
 import time
-#i want to play a sound when someone is detected
 import os
 
 

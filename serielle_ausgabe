@@ -6,14 +6,17 @@ const parser = port.pipe(new Readline({ delimiter: '\r\n' }));
 
 function appendToTable(time, drink) {
   const row = document.createElement('tr');
+  
   // Spalte für die Zeit
   const timeCell = document.createElement('td');
   timeCell.textContent = time;
   row.appendChild(timeCell);
+
   // Spalte für den Text "Person erkannt"
   const drinkCell = document.createElement('td');
   drinkCell.textContent = drink;
   row.appendChild(drinkCell);
+
   // Spalte für den Löschen-Button (Mülleimer-Symbol)
   const deleteCell = document.createElement('td');
   const deleteIcon = document.createElement('i');
